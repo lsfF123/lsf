@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Muli:300,700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        div {
+            width: 700px;
+            height: 500px;
+            border: 3.5px solid black;
+            border-radius: 15px;
+            margin: 200px auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 25px;
+            margin-top: 70px;
+        }
+
+        p {
+            width: 600px;
+            margin: 0 auto;
+            color: #666;
+        }
+
+        input {
+            margin-top: 50px;
+            width: 90px;
+            height: 120px;
+            text-align: center;
+            font-size: 60px;
+            font-weight: 600;
+            border-radius: 10px;
+            margin-left: 10px;
+            border: 1px solid #666;
+            caret-color: rgba(0, 0, 0, 0)
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input:valid {
+            box-shadow: 0px 5px 8px 1px #666;
+            border: 1px solid blue;
+        }
+
+        @media (max-width: 600px) {
+            .code-container {
+                flex-wrap: wrap;
+            }
+
+            input {
+                font-size: 60px;
+                height: 80px;
+                max-width: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>验证您的账户</h1>
+        <p>我们通过电子邮件向您发送了六位数代码，cool_guy@email.com
+            输入下面的代码以确认您的电子邮件地址。</p>
+        <input type="number" min="0" maxlength="1" placeholder="0" required oninput="if(value.length>1) value=value.slice(1,2)" >
+        <input type="number" min="0" maxlength="1" placeholder="0" required oninput="if(value.length>1) value=value.slice(1,2)" >
+        <input type="number" min="0" maxlength="1" placeholder="0" required oninput="if(value.length>1) value=value.slice(1,2)" >
+        <input type="number" min="0" maxlength="1" placeholder="0" required oninput="if(value.length>1) value=value.slice(1,2)" >
+        <input type="number" min="0" maxlength="1" placeholder="0" required oninput="if(value.length>1) value=value.slice(1,2)" >
+        <input type="number" min="0" maxlength="1" placeholder="0" required oninput="if(value.length>1) value=value.slice(1,2)" >
+    </div>
+</body>
+<script>
+    let input = document.querySelectorAll('input')
+    input[0].focus()//开局input自动聚焦
+    input.forEach((value, index) => {
+        value.addEventListener('keydown', function (e) {
+            if (e.key >= 0 && e.key <= 9) {
+                console.log(e.key);
+                if (index < 5) {
+                    setTimeout(() => input[index + 1].focus(), 10)
+                } else if (index == 5) {
+                    setTimeout(() => input[index].focus(), 10)
+                    input[index].length = '1'
+                }
+            } else if (e.key === 'Backspace') {
+                if (index > 0) {
+                    setTimeout(() => input[index - 1].focus(), 10)
+                } else if (index == 0) {
+                    setTimeout(() => input[index].focus(), 10)
+                }
+
+            }
+        })
+    })
+</script>
+
+</html>
